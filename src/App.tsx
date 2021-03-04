@@ -5,10 +5,11 @@ import thunk from "redux-thunk"
 
 import items from "./app/redux/Item/Item.reducers"
 import users from "./app/redux/User/User.reducers"
+import todos from "./app/redux/Todo/Todo.reducers"
 import RouteManager from "./app/RouteManager"
 
 // Setup Redux store with Thunks
-const reducers = combineReducers({ items, users })
+const reducers = combineReducers({ items, users, todos })
 const store = createStore(reducers, applyMiddleware(thunk))
 
 const App = () => {
