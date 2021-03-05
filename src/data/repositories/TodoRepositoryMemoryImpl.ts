@@ -12,7 +12,7 @@ const todoJsonData = [
     { id: 2, title: "code code code", isCompleted: false },
 ]
 
-export class TodoRepositoryImpl implements TodoRepository {
+export class TodoRepositoryMemoryImpl implements TodoRepository {
     async GetTodos(): Promise<Todo[]> {
         return todoJsonData.map((todo: TodoDTO) => new Todo(todo.id, todo.title, todo.isCompleted))
     }

@@ -1,5 +1,6 @@
 import { Todo } from "../entities/Todo"
 import { TodoRepository } from "../repositories/TodoRepository"
+import Swal from "sweetalert2"
 
 export interface TodoService {
     GetTodos(): Promise<Todo[]>
@@ -24,7 +25,7 @@ export class TodoServiceImpl implements TodoService {
         const statusIsCompleted = data.isCompleted
 
         if (statusIsCompleted) {
-            throw alert("You can't delete this todo")
+            throw Swal.fire("You can't delete this todo")
         }
 
         return this.todoRepo.DeleteTodo(data)
