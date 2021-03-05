@@ -28,12 +28,12 @@ export const addTodo = (data: any) => {
     }
 }
 
-export const deleteTodo = (id: any) => {
+export const deleteTodo = (data: any) => {
     return async function (dispatch: any) {
         try {
             const todoRepo = new TodoRepositoryImpl()
             const todoService = new TodoServiceImpl(todoRepo)
-            const todos = await todoService.DeleteTodo(id)
+            const todos = await todoService.DeleteTodo(data)
             dispatch({ type: TODO_LOAD_SUCCESS, payload: todos })
         } catch (error) {
             dispatch({ type: TODO_LOAD_FAILURE, error })

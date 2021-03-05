@@ -23,12 +23,12 @@ export class TodoRepositoryImpl implements TodoRepository {
         return todoJsonData
     }
 
-    async DeleteTodo(id: number) {
+    async DeleteTodo(data: any) {
         const deleteTodo = todoJsonData
             .map((todo) => {
                 return todo.id
             })
-            .indexOf(id)
+            .indexOf(data.id)
         todoJsonData.splice(deleteTodo, 1)
 
         return todoJsonData

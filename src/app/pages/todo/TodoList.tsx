@@ -24,8 +24,8 @@ const TodoList = ({ todos }: TodoProps) => {
         dispatch(addTodo(data))
     }
 
-    const handleDeleteTodo = (id: number) => {
-        dispatch(deleteTodo(id))
+    const handleDeleteTodo = (data: any) => {
+        dispatch(deleteTodo(data))
         dispatch(refreshTodo)
     }
 
@@ -99,7 +99,7 @@ const TodoList = ({ todos }: TodoProps) => {
                         <a className="btn-flat" onClick={() => handleEditTodo(todo)}>
                             Edit
                         </a>
-                        <a className="btn-flat red-text" onClick={() => handleDeleteTodo(todo.id)}>
+                        <a className="btn-flat red-text" onClick={() => handleDeleteTodo(todo)}>
                             Delete
                         </a>
                     </div>

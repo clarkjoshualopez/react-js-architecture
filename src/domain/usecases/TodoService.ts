@@ -20,8 +20,14 @@ export class TodoServiceImpl implements TodoService {
         return this.todoRepo.AddTodo(data)
     }
 
-    async DeleteTodo(id: number): Promise<any> {
-        return this.todoRepo.DeleteTodo(id)
+    async DeleteTodo(data: any): Promise<any> {
+        const statusIsCompleted = data.isCompleted
+
+        if (statusIsCompleted) {
+            throw alert("You can't delete this todo")
+        }
+
+        return this.todoRepo.DeleteTodo(data)
     }
 
     async UpdateTodo(data: any): Promise<any> {
