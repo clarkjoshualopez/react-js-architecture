@@ -15,7 +15,7 @@ export interface RefreshTodoListSuccess {
 }
 
 export interface Todo {
-    id: number
+    id: any
     title: string
     isCompleted: boolean
 }

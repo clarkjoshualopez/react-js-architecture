@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "eslint-plugin-react": "^7.19.0",
+    "firebase": "^8.2.10",
     "husky": "^4.2.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

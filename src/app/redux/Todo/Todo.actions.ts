@@ -1,13 +1,14 @@
 import { TODO_LOAD_REQUEST, TODO_LOAD_SUCCESS, TODO_LOAD_FAILURE } from "./Todo.types"
 import { TodoServiceImpl } from "../../../domain/usecases/TodoService"
 // import { TodoRepositoryMemoryImpl } from "../../../data/repositories/TodoRepositoryMemoryImpl"
-import { TodoRepositoryLocalStorageImpl } from "../../../data/repositories/TodoRepositoryLocalStorageImpl"
+// import { TodoRepositoryLocalStorageImpl } from "../../../data/repositories/TodoRepositoryLocalStorageImpl"
+import { TodoRepositoryFirebaseImpl } from "../../../data/repositories/TodoRepositoryFirebaseImpl"
 
 export const refreshTodo = async (dispatch: any) => {
     dispatch({ type: TODO_LOAD_REQUEST })
 
     try {
-        const todoRepo = new TodoRepositoryLocalStorageImpl()
+        const todoRepo = new TodoRepositoryFirebaseImpl()
         const todoService = new TodoServiceImpl(todoRepo)
         const todos = await todoService.GetTodos()
         dispatch({ type: TODO_LOAD_SUCCESS, payload: todos })
@@ -19,10 +20,11 @@ export const refreshTodo = async (dispatch: any) => {
 export const addTodo = (data: any) => {
     return async function (dispatch: any) {
         try {
-            const todoRepo = new TodoRepositoryLocalStorageImpl()
+            const todoRepo = new TodoRepositoryFirebaseImpl()
             const todoService = new TodoServiceImpl(todoRepo)
-            const todos = await todoService.AddTodo(data)
-            dispatch({ type: TODO_LOAD_SUCCESS, payload: todos })
+            await todoService.AddTodo(data).then(() => {
+                dispatch(refreshTodo)
+            })
         } catch (error) {
             dispatch({ type: TODO_LOAD_FAILURE, error })
         }
@@ -32,10 +34,11 @@ export const addTodo = (data: any) => {
 export const deleteTodo = (data: any) => {
     return async function (dispatch: any) {
         try {
-            const todoRepo = new TodoRepositoryLocalStorageImpl()
+            const todoRepo = new TodoRepositoryFirebaseImpl()
             const todoService = new TodoServiceImpl(todoRepo)
-            const todos = await todoService.DeleteTodo(data)
-            dispatch({ type: TODO_LOAD_SUCCESS, payload: todos })
+            await todoService.DeleteTodo(data).then(() => {
+                dispatch(refreshTodo)
+            })
         } catch (error) {
             dispatch({ type: TODO_LOAD_FAILURE, error })
         }
@@ -45,10 +48,11 @@ export const deleteTodo = (data: any) => {
 export const UpdateTodo = (data: any) => {
     return async function (dispatch: any) {
         try {
-            const todoRepo = new TodoRepositoryLocalStorageImpl()
+            const todoRepo = new TodoRepositoryFirebaseImpl()
             const todoService = new TodoServiceImpl(todoRepo)
-            const todos = await todoService.UpdateTodo(data)
-            dispatch({ type: TODO_LOAD_SUCCESS, payload: todos })
+            await todoService.UpdateTodo(data).then(() => {
+                dispatch(refreshTodo)
+            })
         } catch (error) {
             dispatch({ type: TODO_LOAD_FAILURE, error })
         }
@@ -58,10 +62,11 @@ export const UpdateTodo = (data: any) => {
 export const isCompleted = (data: any) => {
     return async function (dispatch: any) {
         try {
-            const todoRepo = new TodoRepositoryLocalStorageImpl()
+            const todoRepo = new TodoRepositoryFirebaseImpl()
             const todoService = new TodoServiceImpl(todoRepo)
-            const todos = await todoService.IsCompleted(data)
-            dispatch({ type: TODO_LOAD_SUCCESS, payload: todos })
+            await todoService.IsCompleted(data).then(() => {
+                dispatch(refreshTodo)
+            })
         } catch (error) {
             dispatch({ type: TODO_LOAD_FAILURE, error })
         }

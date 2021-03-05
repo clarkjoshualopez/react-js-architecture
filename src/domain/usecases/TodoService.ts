@@ -17,11 +17,11 @@ export class TodoServiceImpl implements TodoService {
         return this.todoRepo.GetTodos()
     }
 
-    async AddTodo(data: any) {
+    async AddTodo(data: Todo): Promise<any> {
         return this.todoRepo.AddTodo(data)
     }
 
-    async DeleteTodo(data: any): Promise<any> {
+    async DeleteTodo(data: Todo): Promise<any> {
         const statusIsCompleted = data.isCompleted
 
         if (statusIsCompleted) {
@@ -31,11 +31,11 @@ export class TodoServiceImpl implements TodoService {
         return this.todoRepo.DeleteTodo(data)
     }
 
-    async UpdateTodo(data: any): Promise<any> {
+    async UpdateTodo(data: Todo): Promise<any> {
         return this.todoRepo.UpdateTodo(data)
     }
 
-    async IsCompleted(data: any): Promise<any> {
+    async IsCompleted(data: Todo): Promise<any> {
         return this.todoRepo.IsCompleted(data)
     }
 }

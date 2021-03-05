@@ -26,7 +26,6 @@ const TodoList = ({ todos }: TodoProps) => {
 
     const handleDeleteTodo = (data: any) => {
         dispatch(deleteTodo(data))
-        dispatch(refreshTodo)
     }
 
     const handleEditTodo = (data: any) => {
@@ -42,12 +41,10 @@ const TodoList = ({ todos }: TodoProps) => {
             },
         } as SweetAlertOptions).then((result) => {
             if (result.value) {
-                console.log(result)
                 newTodo.id = data.id
                 newTodo.title = result.value
-                console.log("upcomming data", newTodo, "inputed data", data)
+                newTodo.isCompleted = data.isCompleted
                 dispatch(UpdateTodo(newTodo))
-                dispatch(refreshTodo)
             }
         })
     }
@@ -58,7 +55,6 @@ const TodoList = ({ todos }: TodoProps) => {
             const lastTodosId = Object.entries(todos).length === 0 ? Math.random() : todos.slice(-1)[0].id + 1
             newTodo.id = lastTodosId
             handleAddTodo(newTodo)
-            dispatch(refreshTodo)
             e.target.children[1].value = ""
         } else {
             Swal.fire("Please input a todo title")
@@ -71,7 +67,6 @@ const TodoList = ({ todos }: TodoProps) => {
 
     const handleChecked = (data: any) => {
         dispatch(isCompleted(data))
-        dispatch(refreshTodo)
     }
 
     const todoList =
